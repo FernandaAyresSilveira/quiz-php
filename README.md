@@ -1,5 +1,5 @@
 # Quiz Geek
-###### _Este projeto apresenta um quiz em Php_
+###### _Este projeto apresenta um quiz em PHP_
 
 
 
