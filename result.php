@@ -41,13 +41,15 @@
 		$idosa 		= $_POST["idosa"];
 		$elevador 	= $_POST["elevador"];
 		$assunto 	= $_POST["assunto"];
-		$indo 		= $_POST["indo"];
+		$indo 		= $_POST["indo"];//vale mais
 
 		$a = 0;
 		$b = 0;
 		$c = 0;
 		$d = 0;
 		$e = 0;
+
+		//echo "opções ".$acorda.' - '.$idosa.' - '.$elevador.' - '.$assunto.' - '.$indo.'<br>';
 
 
 		switch ($acorda) {
@@ -140,28 +142,118 @@
 		}
 
 		$result = array('a' => $a, 'b' => $b,'c' => $c, 'd' =>  $d , 'e' =>  $e);
+		//ordenando para valores decrescentes
 		arsort($result);
+		if (current($result) == next($result)) {//casos iguais			
 
-		//print_r($result);
-		if (current($result) == next($result)) {
-			switch (array_key_first($result)) {
-				case 'a':
-					$a++;
-					break;
-				case 'b':
-					$b++;
-					break;
-				case 'c':
-					$c++;
-					break;
-				case 'd':
-					$d++;
-					break;
-				case 'e':
-					$e++;
-					break;			
+			if (current($result)==1) {//todos iguais a 1
+				switch ($indo) {//opção 'e' desempata
+					case 'a':
+						$a++;
+						break;
+					case 'b':
+						$b++;
+						break;
+					case 'c':
+						$c++;
+						break;
+					case 'd':
+						$d++;
+						break;
+					case 'e':
+						$e++;
+						break;			
+				}			
+			}else{
+				//desempate entre as 2 primeiras opções maiores
+				$chaves = array_keys($result);
+				$desempate = array();
+				$desempate[0] = $chaves[0];
+				$desempate[1] = $chaves[1];
+
+				if ($desempate[0]==$indo) {//se empate de 2/2 e algum estiver em e
+					switch ($indo) {//questão '5' desempata
+						case 'a':
+							$a++;
+							break;
+						case 'b':
+							$b++;
+							break;
+						case 'c':
+							$c++;
+							break;
+						case 'd':
+							$d++;
+							break;
+						case 'e':
+							$e++;
+							break;			
+					}
+				}else if ($desempate[1]==$indo) {
+					switch ($indo) {//questão '5' desempata
+						case 'a':
+							$a++;
+							break;
+						case 'b':
+							$b++;
+							break;
+						case 'c':
+							$c++;
+							break;
+						case 'd':
+							$d++;
+							break;
+						case 'e':
+							$e++;
+							break;			
+					}
+				}else if ($desempate[0]==$assunto) {
+					switch ($assunto) {//questão '5' desempata
+						case 'a':
+							$a++;
+							break;
+						case 'b':
+							$b++;
+							break;
+						case 'c':
+							$c++;
+							break;
+						case 'd':
+							$d++;
+							break;
+						case 'e':
+							$e++;
+							break;			
+					}
+				}else if ($desempate[1]==$assunto) {
+					switch ($assunto) {//questão '5' desempata
+						case 'a':
+							$a++;
+							break;
+						case 'b':
+							$b++;
+							break;
+						case 'c':
+							$c++;
+							break;
+						case 'd':
+							$d++;
+							break;
+						case 'e':
+							$e++;
+							break;			
+					}
+				}
+				
 			}
+			//organizando novamente
+			$result = array('a' => $a, 'b' => $b,'c' => $c, 'd' =>  $d , 'e' =>  $e);
+			//ordenando para valores decrescentes
 			arsort($result);
+			//print_r($result);
+
+			
+			
 		}
 		$option = array_key_first($result);
 
