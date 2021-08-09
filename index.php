@@ -110,13 +110,6 @@
 			)
 		);
 
-
-//var_dump($questions);
-
-
-
-
-
 	?>
 
 		<section class="questions" id="quiz">
@@ -125,40 +118,56 @@
 				
 
 			<?php $cont=0;
+			$letter = 0;
+			$let = '';
 			
  
 			foreach ($questions as $q) { 
 				$cont++;
+
 
 				echo "
 						<p>{$cont}. {$q['question']}</p>";
 
 						$keys = array_keys($q['options']);
 						shuffle($keys);
-						//var_dump($keys);
 						$random = array();
-						//echo $q['name'];
 						
+						foreach ($keys as $k) {
+							$letter++;
+				
+							switch ($letter) {
+								case 1:
+									$let = 'a';
+									break;
+								case 2:
+									$let = 'b';
+									break;
+								case 3:
+									$let = 'c';
+									break;
+								case 4:
+									$let = 'd';
+									break;
+								case 5:
+									$let = 'e';
+									break;
+							}
+							echo 
+						"<span>
+							<input type='radio' name='{$q['name']}' id='{$q['name']}{$k}' value='{$k}' required>
+							{$let}. <label for='{$q['name']}{$k}'>{$q['options'][$k]}</label>
+						</span>";
+						if ($letter ==5) {
+							$let = "";
+							$letter = 0;
+						}
 
-						//foreach ($q['options'] as $option => $v) {
-							foreach ($keys as $k) {
-								echo 
-							"<span>
-								<input type='radio' name='{$q['name']}' id='{$q['name']}{$k}' value='{$k}' required>
-								<label for='{$q['name']}{$k}'>{$q['options'][$k]}</label>
-							</span>";
-
-
-
-							/*echo 
-							"<span>
-								<input type='radio' name='{$q['name']}' id='{$q['name']}{$option}' value='{$option}'>
-								<label for='{$q['name']}{$option}'>{$v}</label>
-							</span><br>";*/
 						}
 						
 
 				echo "	<br>";
+				
 			}?>
 
 			<input type="submit" name="enviar" value="Vamos lá">
